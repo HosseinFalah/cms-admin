@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom';
 import { Box, ThemeProvider } from '@mui/material'
 import theme from './Theme/Theme'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
@@ -26,6 +27,7 @@ const MainLayout = () => {
                     <Grid2 xs={10}>
                         <Box component={'main'} sx={{ background: '#fafafa', p: 2, height: 1 }}>
                             <Header/>
+                            <Outlet/>
                         </Box>
                     </Grid2>
                 </Grid2>

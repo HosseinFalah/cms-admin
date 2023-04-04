@@ -12,6 +12,11 @@
     font-display: swap;
 }
 
+a{
+    text-decoration: none;
+    color: inherit;
+    display: contents;
+}
 
 *, body, html {
     font-family: IranSansDN;

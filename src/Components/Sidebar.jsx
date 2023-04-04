@@ -4,6 +4,7 @@ import { MdAddShoppingCart } from "react-icons/md";
 import { BiCommentDetail } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
 import { GiShoppingBag } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     return (
@@ -19,40 +20,52 @@ const Sidebar = () => {
             <Divider color="white" />
             <List component='ul' sx={{ color: '#fafafa' }}>
                 <ListItem disablePadding>
-                    <ListItemButton component="a" href="#simple-list">
-                        <AiOutlineHome size={20}/>
-                        <ListItemText primary="صفحه اصلی" sx={{ ml: 2 }} />
-                    </ListItemButton>
+                    <Link to={`/`}>
+                        <ListItemButton>
+                            <AiOutlineHome size={20}/>
+                            <ListItemText primary="صفحه اصلی" sx={{ ml: 2 }} />
+                        </ListItemButton>
+                    </Link>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component="a" href="#simple-list">
-                        <MdAddShoppingCart size={20}/>
-                        <ListItemText primary="محصولات" sx={{ ml: 2 }} />
-                    </ListItemButton>
+                    <Link to={`/products`}>
+                        <ListItemButton>
+                            <MdAddShoppingCart size={20}/>
+                            <ListItemText primary="محصولات" sx={{ ml: 2 }} />
+                        </ListItemButton>
+                    </Link>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component="a" href="#simple-list">
-                        <BiCommentDetail size={20}/>
-                        <ListItemText primary="کامنت ها" sx={{ ml: 2 }} />
-                    </ListItemButton>
+                    <Link to={`/comments`}>
+                        <ListItemButton component="a" href="/comments">
+                            <BiCommentDetail size={20}/>
+                            <ListItemText primary="کامنت ها" sx={{ ml: 2 }} />
+                        </ListItemButton>
+                    </Link>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component="a" href="#simple-list">
-                        <FiUsers size={20}/>
-                        <ListItemText primary="کاربران" sx={{ ml: 2 }} />
-                    </ListItemButton>
+                    <Link to={`/users`}>
+                        <ListItemButton component="a" href="/users">
+                            <FiUsers size={20}/>
+                            <ListItemText primary="کاربران" sx={{ ml: 2 }} />
+                        </ListItemButton>
+                    </Link>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component="a" href="#simple-list">
-                        <GiShoppingBag size={20}/>
-                        <ListItemText primary="سفارشات" sx={{ ml: 2 }} />
-                    </ListItemButton>
+                    <Link to={`/orders`}>
+                        <ListItemButton component="a" href="/orders">
+                            <GiShoppingBag size={20}/>
+                            <ListItemText primary="سفارشات" sx={{ ml: 2 }} />
+                        </ListItemButton>
+                    </Link>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component="a" href="#simple-list">
-                        <AiOutlineDollarCircle size={20}/>
-                        <ListItemText primary="تخفیف ها" sx={{ ml: 2 }} />
-                    </ListItemButton>
+                    <Link to={`/offs`}>
+                        <ListItemButton component="a" href="/offs">
+                            <AiOutlineDollarCircle size={20}/>
+                            <ListItemText primary="تخفیف ها" sx={{ ml: 2 }} />
+                        </ListItemButton>
+                    </Link>
                 </ListItem>
             </List>
         </Box>
