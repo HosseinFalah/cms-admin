@@ -1,6 +1,11 @@
 import { createTheme } from "@mui/material";
 
 const theme = createTheme({
+    palette: {
+        primary: {
+          main: '#4c1d95',
+        },
+    },
     typography: {
         fontFamily: `"IranSansDN", "Roboto", "Arial"`,
         fontWeightLight: 300,

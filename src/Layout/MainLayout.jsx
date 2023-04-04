@@ -1,7 +1,7 @@
-import { ThemeProvider } from '@mui/material'
+import { Box, ThemeProvider } from '@mui/material'
 import theme from './Theme/Theme'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
-import { Sidebar } from "../Components/index";
+import { Sidebar, Header } from "../Components/index";
 
 // RTL
 import rtlPlugin from 'stylis-plugin-rtl';
@@ -20,8 +20,13 @@ const MainLayout = () => {
         <CacheProvider value={cacheRtl}>
             <ThemeProvider theme={theme}>
                 <Grid2 container>
-                    <Grid2 xs={4}>
+                    <Grid2 xs={2}>
                         <Sidebar/>
+                    </Grid2>
+                    <Grid2 xs={10}>
+                        <Box component={'main'} sx={{ background: '#fafafa', p: 2, height: 1 }}>
+                            <Header/>
+                        </Box>
                     </Grid2>
                 </Grid2>
             </ThemeProvider>
