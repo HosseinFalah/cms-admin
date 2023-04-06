@@ -1,8 +1,11 @@
-import React from 'react'
+import { Box } from '@mui/material'
+import ErrorBox from '../Components/ErrorBox'
 
 const Offs = () => {
   return (
-    <div>Offs</div>
+    <Box>
+      <ErrorBox msg={'هیج کد تخفیفی یافت نشد'}/>
+    </Box>
   )
 }
 

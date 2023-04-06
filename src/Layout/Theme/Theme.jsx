@@ -5,6 +5,9 @@ const theme = createTheme({
         primary: {
           main: '#4c1d95',
         },
+        error: {
+            main: '#ff4f4f'
+        }
     },
     typography: {
         fontFamily: `"IranSansDN", "Roboto", "Arial"`,

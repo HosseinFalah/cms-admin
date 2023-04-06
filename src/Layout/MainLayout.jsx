@@ -24,8 +24,8 @@ const MainLayout = () => {
                     <Grid2 xs={2}>
                         <Sidebar/>
                     </Grid2>
-                    <Grid2 xs={10}>
-                        <Box component={'main'} sx={{ background: '#fafafa', p: 2, height: 1 }}>
+                    <Grid2 xs={10} sx={{ background: '#fafafa', height: '100vh' }}>
+                        <Box component={'main'} p={2}>
                             <Header/>
                             <Outlet/>
                         </Box>

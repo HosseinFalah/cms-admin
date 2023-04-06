@@ -1,8 +1,11 @@
-import React from 'react'
+import { Box } from '@mui/material'
+import ErrorBox from '../Components/ErrorBox'
 
 const Comments = () => {
   return (
-    <div>Comments</div>
+    <Box>
+      <ErrorBox msg={'هیج کامنتی یافت نشد'}/>
+    </Box>  
   )
 }
 

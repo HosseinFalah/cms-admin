@@ -1,8 +1,11 @@
-import React from 'react'
+import { Box } from '@mui/material'
+import ErrorBox from '../Components/ErrorBox'
 
 const Orders = () => {
   return (
-    <div>Orders</div>
+    <Box>
+      <ErrorBox msg={'هیج سفارشی یافت نشد'}/>
+    </Box>  
   )
 }
 

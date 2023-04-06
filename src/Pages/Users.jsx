@@ -1,8 +1,11 @@
-import React from 'react'
+import { Box } from '@mui/material'
+import ErrorBox from '../Components/ErrorBox'
 
 const Users = () => {
   return (
-    <div>Users</div>
+    <Box>
+      <ErrorBox msg={'هیج کاربری یافت نشد'}/>
+    </Box>
   )
 }
 
