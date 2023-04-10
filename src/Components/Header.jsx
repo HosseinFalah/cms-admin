@@ -6,7 +6,7 @@ const Header = () => {
     return (
         <Stack direction="row" alignItems={'center'} justifyContent={'space-between'}>
             <Stack direction="row" spacing={2} alignItems={'center'}>
-                <Avatar alt="HosseinFalah" src="/Assets/Avatar.jpg" sx={{ width: 65, height: 65, objectFit: 'cover' }}>HF</Avatar>
+                <Avatar alt="HosseinFalah" src="/Assets/images/Avatar.jpg" sx={{ width: 65, height: 65, objectFit: 'cover' }}>HF</Avatar>
                 <Box>
                     <Typography sx={{ fontSize: 20, fontWeight: 700 }}>حسین فلاح</Typography>
                     <Typography>برنامه نویس Front-End</Typography>
