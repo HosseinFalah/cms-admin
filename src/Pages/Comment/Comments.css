@@ -1,0 +1,30 @@
+.comments-table{
+    margin-top: 30px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.comments-table-heading-tr{
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 90px;
+}
+
+.comments-table-tr{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px 0 30px;
+}
+
+.comments-table th {
+    padding: 20px;
+}
+
+.comments-table td {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}

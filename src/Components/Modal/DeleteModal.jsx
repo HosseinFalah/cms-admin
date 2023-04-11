@@ -5,7 +5,7 @@ const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DeleteModal = ({open, hide, removeProduct}) => {
+const DeleteModal = ({open, hide, removeHandle}) => {
     return (
         <Dialog
             open={open}
@@ -21,7 +21,7 @@ const DeleteModal = ({open, hide, removeProduct}) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={removeProduct} variant='outlined' color='success'>بله</Button>
+                <Button onClick={removeHandle} variant='outlined' color='success'>بله</Button>
                 <Button onClick={hide} variant='outlined' color='error'>خیر</Button>
             </DialogActions>
         </Dialog>

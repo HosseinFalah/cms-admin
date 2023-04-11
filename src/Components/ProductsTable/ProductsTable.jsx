@@ -128,7 +128,7 @@ const ProductsTable = ({allProducts, getAllProducts}) => {
                     <ErrorBox msg={'هیج محصولی یافت نشد'}/>
                 )
             }
-            <DeleteModal open={isShowDeleteModal} hide={handleHideDelete} removeProduct={handleDeleteProduct}/>
+            <DeleteModal open={isShowDeleteModal} hide={handleHideDelete} removeHandle={handleDeleteProduct}/>
             <DetailsModal open={isShowDetailsModal} hide={handleHideDetails}>
                 <Stack direction={'row'} justifyContent={'space-between'} columnGap={15}>
                     <Box textAlign={'center'}>
