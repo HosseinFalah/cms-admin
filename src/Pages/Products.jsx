@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { AddNewProduct, ErrorBox, ProductsTable } from '../Components'
+import { AddNewProduct, ProductsTable } from '../Components'
 
 const Products = () => {
   return (
