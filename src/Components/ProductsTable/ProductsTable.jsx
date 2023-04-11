@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { DeleteModal, DetailsModal, EditModal } from '../Modal';
 import ErrorBox from '../ErrorBox';
 import axios from "axios";
 import './ProductsTable.css';
 
-const ProductsTable = () => {
+const ProductsTable = ({allProducts, getAllProducts}) => {
     const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
     const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
     const [isShowEditModal, setIsShowEditModal] = useState(false);
-    const [allProducts, setAllProducts] = useState([]);
     const [mainProductInfos, setMainProductInfos] = useState({}); 
     const [productID, setProductID] = useState(null);
 
@@ -20,19 +19,6 @@ const ProductsTable = () => {
     const [productNewPopularity, setProductNewPopularity] = useState('');
     const [productNewSale, setProductNewSale] = useState('');
     const [productNewColors, setProductNewColors] = useState('');
-
-    useEffect(() => {
-        getAllProducts();
-    }, []);
-    
-    const getAllProducts = async () => {
-        try {
-            const { data } = await axios.get('http://localhost:8000/api/products');
-            setAllProducts(data)
-        } catch (error) {
-            console.log(error);
-        }
-    }
     
     const handleHideDelete = () => setIsShowDeleteModal(false);
     const handleHideDetails = () => setIsShowDetailsModal(false);
@@ -47,8 +33,6 @@ const ProductsTable = () => {
             console.log(error);
         }
     }
-
-
 
     const handleUpdateProductInfo = async (e) => {
         e.preventDefault();

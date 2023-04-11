@@ -3,7 +3,7 @@ import axios from "axios";
 import { Box, Button, TextField } from "@mui/material"
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 
-const AddNewProduct = () => {
+const AddNewProduct = ({getAllProducts}) => {
     const [newProductTitle, setNewProductTitle] = useState('');
     const [newProductPrice, setNewProductPrice] = useState('');
     const [newProductCount, setNewProductCount] = useState('');
@@ -26,9 +26,21 @@ const AddNewProduct = () => {
         e.preventDefault();
         try {
             await axios.post('http://localhost:8000/api/products', newProductsInfos);
+            getAllProducts()
+            emptyInput()
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const emptyInput = () => {
+        setNewProductTitle('')
+        setNewProductPrice('')
+        setNewProductCount('')
+        setNewProductImg('')
+        setNewProductPopularity('')
+        setNewProductSale('')
+        setNewProductColors('')
     }
 
     return (
