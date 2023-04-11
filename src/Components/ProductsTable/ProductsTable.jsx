@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, Stack, TextField } from '@mui/material';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { DeleteModal, DetailsModal, EditModal } from '../Modal';
 import ErrorBox from '../ErrorBox';
+import axios from "axios";
 import './ProductsTable.css';
 
 const ProductsTable = () => {
@@ -9,20 +10,67 @@ const ProductsTable = () => {
     const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
     const [isShowEditModal, setIsShowEditModal] = useState(false);
     const [allProducts, setAllProducts] = useState([]);
-    
+    const [mainProductInfos, setMainProductInfos] = useState({}); 
+    const [productID, setProductID] = useState(null);
+
+    const [productNewTitle, setProductNewTitle] = useState('');
+    const [productNewPrice, setProductNewPrice] = useState('');
+    const [productNewCount, setProductNewCount] = useState('');
+    const [productNewImg, setProductNewImg] = useState('');
+    const [productNewPopularity, setProductNewPopularity] = useState('');
+    const [productNewSale, setProductNewSale] = useState('');
+    const [productNewColors, setProductNewColors] = useState('');
+
     useEffect(() => {
-        const fetchProducts = async () => {
-            const responseData = await fetch('http://localhost:8000/api/products');
-            const productData = await responseData.json();
-            setAllProducts(productData);
-        }
-
-        fetchProducts();
+        getAllProducts();
     }, []);
-
+    
+    const getAllProducts = async () => {
+        try {
+            const { data } = await axios.get('http://localhost:8000/api/products');
+            setAllProducts(data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
     const handleHideDelete = () => setIsShowDeleteModal(false);
     const handleHideDetails = () => setIsShowDetailsModal(false);
     const handleHideEdit = () => setIsShowEditModal(false);
+
+    const handleDeleteProduct = async () => {
+        try {
+            await axios.delete(`http://localhost:8000/api/products/${productID}`);
+            handleHideDelete();
+            getAllProducts();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
+    const handleUpdateProductInfo = async (e) => {
+        e.preventDefault();
+
+        const productNewInfo = {
+            title: productNewTitle,
+            price: productNewPrice,
+            count: productNewCount,
+            img: productNewImg,
+            popularity: productNewPopularity,
+            sale: productNewSale,
+            colors: productNewColors
+        }
+
+        try {
+            await axios.put(`http://localhost:8000/api/products/${productID}`, productNewInfo);
+            handleHideEdit();
+            getAllProducts();
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -49,9 +97,40 @@ const ProductsTable = () => {
                                         <td>{product.count}</td>
                                         <td>
                                             <Stack direction={'row'} columnGap={2}>
-                                                <Button variant='contained' color='primary' onClick={() => setIsShowDetailsModal(true)}>جزییات</Button>
-                                                <Button variant='contained' color='primary' onClick={() => setIsShowDeleteModal(true)}>حذف</Button>
-                                                <Button variant='contained' color='primary' onClick={() => setIsShowEditModal(true)}>ویرایش</Button>
+                                                <Button 
+                                                    variant='contained' 
+                                                    color='primary' 
+                                                    onClick={() => {
+                                                        setIsShowDetailsModal(true);
+                                                        setMainProductInfos(product);
+                                                    }}>
+                                                        جزییات
+                                                </Button>
+                                                <Button 
+                                                    variant='contained' 
+                                                    color='primary' 
+                                                    onClick={() => { 
+                                                        setIsShowDeleteModal(true)
+                                                        setProductID(product.id)
+                                                    }}>
+                                                        حذف
+                                                </Button>
+                                                <Button 
+                                                    variant='contained' 
+                                                    color='primary' 
+                                                    onClick={() => {
+                                                        setIsShowEditModal(true)
+                                                        setProductID(product.id)
+                                                        setProductNewTitle(product.title)
+                                                        setProductNewPrice(product.price)
+                                                        setProductNewCount(product.count)
+                                                        setProductNewImg(product.img)
+                                                        setProductNewPopularity(product.popularity)
+                                                        setProductNewSale(product.sale)
+                                                        setProductNewColors(product.colors)
+                                                    }}>
+                                                        ویرایش
+                                                </Button>
                                             </Stack>
                                         </td>
                                     </tr>
@@ -65,37 +144,87 @@ const ProductsTable = () => {
                     <ErrorBox msg={'هیج محصولی یافت نشد'}/>
                 )
             }
-            <DeleteModal open={isShowDeleteModal} hide={handleHideDelete}/>
-            <DetailsModal open={isShowDetailsModal} hide={handleHideDetails}/>
-            <EditModal open={isShowEditModal} hide={handleHideEdit}>
-                <Box component={'form'}>
+            <DeleteModal open={isShowDeleteModal} hide={handleHideDelete} removeProduct={handleDeleteProduct}/>
+            <DetailsModal open={isShowDetailsModal} hide={handleHideDetails}>
+                <Stack direction={'row'} justifyContent={'space-between'} columnGap={15}>
+                    <Box textAlign={'center'}>
+                        <Typography>محبوبیت</Typography>
+                        <Typography variant="body2" sx={{ fontSize: 18, fontWeight: 800, mt: 1, color: '#262626' }}>{mainProductInfos.popularity}</Typography>
+                    </Box>
+                    <Box textAlign={'center'}>
+                        <Typography>فروش</Typography>
+                        <Typography variant="body2" sx={{ fontSize: 18, fontWeight: 800, mt: 1, color: '#262626' }}>{parseInt(mainProductInfos.sale).toLocaleString()}</Typography>
+                    </Box>
+                    <Box textAlign={'center'}>
+                        <Typography>رنگ بندی</Typography>
+                        <Typography variant="body2" sx={{ fontSize: 18, fontWeight: 800, mt: 1, color: '#262626' }}>{mainProductInfos.colors}</Typography>
+                    </Box>
+                </Stack>
+            </DetailsModal>
+            <EditModal open={isShowEditModal} hide={handleHideEdit} updateProduct={handleUpdateProductInfo}>
+                <Box component={'form'} autoComplete='off'>
                     <TextField
-                      id=""
-                      label="نام محصول را بنویسید"
-                      variant="outlined"
-                      sx={{ mt: 1 }}
-                      fullWidth
+                        id="firstName"
+                        name="firstName"
+                        label="نام محصول را بنویسید"
+                        fullWidth
+                        sx={{ mt: 1 }}
+                        value={productNewTitle}
+                        onChange={e => setProductNewTitle(e.target.value)}
                     />
                     <TextField
-                      id=""
-                      label="قیمت محصول را بنویسید"
-                      variant="outlined"
-                      sx={{ mt: 1 }}
-                      fullWidth
+                        id="firstName"
+                        name="firstName"
+                        label="قیمت محصول را بنویسید"
+                        fullWidth
+                        sx={{ mt: 2 }}
+                        value={productNewPrice.toLocaleString()}
+                        onChange={e => setProductNewPrice(e.target.value)}
                     />
                     <TextField
-                      id=""
-                      label="آدرس محصول را بنویسید"
-                      variant="outlined"
-                      sx={{ mt: 1 }}
-                      fullWidth
+                        id="firstName"
+                        name="firstName"
+                        label="موجودی محصول را بنویسید"
+                        fullWidth
+                        sx={{ mt: 2 }}
+                        value={productNewCount}
+                        onChange={e => setProductNewCount(e.target.value)}
                     />
                     <TextField
-                      id=""
-                      label="میزان فروش محصول را بنویسید"
-                      variant="outlined"
-                      sx={{ mt: 1 }}
-                      fullWidth
+                        id="firstName"
+                        name="firstName"
+                        label="آدرس عکس را بنویسید"
+                        fullWidth
+                        sx={{ mt: 2 }}
+                        value={productNewImg}
+                        onChange={e => setProductNewImg(e.target.value)}
+                    />
+                    <TextField
+                        id="lastName"
+                        name="lastName"
+                        label="میزان محبوبیت را بنویسید"
+                        fullWidth
+                        sx={{ mt: 2 }}
+                        value={productNewPopularity}
+                        onChange={e => setProductNewPopularity(e.target.value)}
+                    />
+                    <TextField
+                        id="lastName"
+                        name="lastName"
+                        label="میزان فروش را بنویسید"
+                        fullWidth
+                        sx={{ mt: 2 }}
+                        value={productNewSale.toLocaleString()}
+                        onChange={e => setProductNewSale(e.target.value)}
+                    />
+                    <TextField
+                        id="lastName"
+                        name="lastName"
+                        label="تعداد رنگ بندی را بنویسید"
+                        fullWidth
+                        sx={{ mt: 2 }}
+                        value={productNewColors}
+                        onChange={e => setProductNewColors(e.target.value)}
                     />
                 </Box>
             </EditModal>

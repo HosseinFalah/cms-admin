@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide } from "@mui/material"
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });  
 
-const EditModal = ({ open, children, hide}) => {
+const EditModal = ({ open, children, hide, updateProduct}) => {
     return (
         <Dialog
             open={open}
@@ -21,7 +21,7 @@ const EditModal = ({ open, children, hide}) => {
                 {children}
             </DialogContent>
             <DialogActions>
-                <Button onClick={hide} variant="contained" color="primary" fullWidth>ثبت اطلاعات جدید</Button>
+                <Button  variant="contained" color="primary" onClick={updateProduct} fullWidth>ثبت اطلاعات جدید</Button>
             </DialogActions>
         </Dialog>
     )
